@@ -1,88 +1,91 @@
 import flet as ft
-from time import sleep
 
 
 def main(page: ft.Page):
     # タイトルの設定
     page.title = "sample 4"
 
-    # イベントの定義
-    def event_click_counter_minus():
-        value = int(text_field_counter.value)
-        text_field_counter.value = str(value - 1)
-        text_field_counter.update()
+    # ウィンドウサイズの設定
+    page.window.width = 800
+    page.window.height = 200
 
-    def event_click_counter_plus():
-        value = int(text_field_counter.value)
-        text_field_counter.value = str(value + 1)
-        text_field_counter.update()
+    # イベント用メソッドの定義
+    # ファイル保存ダイアログ用のイベント
+    def event_save_file_dialog(e: ft.FilePickerResultEvent):
+        if e.path:
+            # 指定パスの取得
+            save_file_path = e.path
 
-    # さまざまなテキストフィールドの定義
-    text_field_sample1 = ft.TextField(label="サンプルテキストフィールド(1)", width=300)
-    text_field_sample2 = ft.TextField(label="サンプルテキストフィールド(2)", width=300,
-                                      multiline=True, min_lines=5)
+            # ファイルパスの反映
+            # Note: 値の変更をUI上で反映するには "update" メソッドの実行が必要
+            text_field_save_file_path.value = save_file_path
+            text_field_save_file_path.update()
 
-    # さまざまなボタンの定義
-    button_sample1 = ft.CupertinoButton("サンプルボタン(1)")
-    button_sample2 = ft.CupertinoFilledButton("サンプルボタン(2)")
-    button_sample3 = ft.ElevatedButton("サンプルボタン(3)")
-    button_sample4 = ft.FilledButton("サンプルボタン(4)")
-    button_sample5 = ft.OutlinedButton("サンプルボタン(5)")
+            # サンプルファイルの保存処理
+            with open(save_file_path, "w", encoding="utf-8") as f:
+                f.write("sample")
 
-    # カウンターの定義
-    text_field_counter = ft.TextField(label="カウンター", width=100, read_only=True, value="0")
-    button_counter_minus = ft.IconButton(ft.Icons.REMOVE, on_click=lambda _: event_click_counter_minus())
-    button_counter_plus = ft.IconButton(ft.Icons.ADD, on_click=lambda _: event_click_counter_plus())
+            # 処理完了後のアラートダイアログ表示
+            dialog = ft.AlertDialog(
+                content=ft.Text("ファイル保存が完了しました"),
+                actions=[ft.TextButton("OK", on_click=lambda _: page.close(dialog))],
+            )
+            page.open(dialog)
+        else:
+            print("ファイル保存がキャンセルされました")
 
-    # ラジオボタンの定義
-    radio_button_sample = ft.RadioGroup(ft.Row([
-        ft.Radio(value="1", label="属性1"),
-        ft.Radio(value="2", label="属性2"),
-        ft.Radio(value="3", label="属性3"),
-    ]))
-    radio_button_sample.value = "1"  # 属性1がデフォルトの状態に設定
+    # ファイル読込ダイアログ用のイベント
+    def event_load_file_dialog(e: ft.FilePickerResultEvent):
+        if e.files:
+            # 指定パスからのファイル読込処理および出力テスト
+            # Note: ファイルが1つのみでも "e.files" にリストとして格納される
+            load_file_path = e.files[0].path
+            print(load_file_path)
 
-    # ドロップダウンメニューの定義
-    # Note: このサンプルでは新しいバージョンの"DropdownM2"を利用
-    dropdown_sample = ft.DropdownM2(
-        border=ft.InputBorder.UNDERLINE,
-        label="ドロップダウンメニューサンプル",
-        width=400,
-        options=[
-            ft.dropdownm2.Option(key="Option1"),
-            ft.dropdownm2.Option(key="Option2"),
-            ft.dropdownm2.Option(key="Option3"),
-            ft.dropdownm2.Option(key="Option4")
-        ],
-    )
+            # ファイルパスの反映
+            # Note: 値の変更をUI上で反映するには "update" メソッドの実行が必要
+            text_field_load_file_path.value = load_file_path
+            text_field_load_file_path.update()
 
-    # プログレスバーの定義
-    progress_bar_text = ft.Text("Progress bar sample")
-    progress_bar_sample = ft.ProgressBar(width=400)
+            # 保存完了のダイアログ表示
+            dialog = ft.AlertDialog(
+                content=ft.Text("ファイル読込が完了しました"),
+                actions=[ft.TextButton("OK", on_click=lambda _: page.close(dialog)),],
+            )
+            page.open(dialog)
+        else:
+            print("ファイル読込がキャンセルされました")
+
+    # FilePicker定義
+    # Note: on_resultには上で定義したイベント用メソッドを指定
+    save_file_dialog = ft.FilePicker(on_result=event_save_file_dialog)
+    load_file_dialog = ft.FilePicker(on_result=event_load_file_dialog)
+
+    # FilePickerのpageオーバレイへの追加
+    # Note: この部分を忘れると、エラー出現するので注意
+    page.overlay.append(save_file_dialog)
+    page.overlay.append(load_file_dialog)
+
+    # テキストおよびテキストフィールドの定義
+    text_save_dialog = ft.Text(value="ファイル保存: ")
+    text_load_dialog = ft.Text(value="ファイル読込: ")
+    text_field_save_file_path = ft.TextField(label="保存ファイルパス", width=500, read_only=True)
+    text_field_load_file_path = ft.TextField(label="読込ファイルパス", width=500, read_only=True)
+
+    # ボタンの定義
+    # Note: FilePickerでのon_clickのメソッド指定はlambda式を利用
+    button_save_dialog = ft.ElevatedButton("保存の実行",
+                               on_click=lambda _: save_file_dialog.save_file(
+                                   "ファイル保存", allowed_extensions=["txt"]))
+    button_load_dialog = ft.ElevatedButton("読込の実行",
+                               on_click=lambda _: load_file_dialog.pick_files(
+                                   "ファイル読込", allow_multiple=False))
 
     # Rowの定義とPageへの追加
-    rows_list = [
-        ft.Row(controls=[text_field_sample1, text_field_sample2]),
-        ft.Row(controls=[button_sample1, button_sample2,
-                         button_sample3, button_sample4, button_sample5]),
-        ft.Row(controls=[button_counter_minus, text_field_counter, button_counter_plus]),
-        ft.Row(controls=[radio_button_sample]),
-        ft.Row(controls=[dropdown_sample]),
-        ft.Row(controls=[progress_bar_text]),
-        ft.Row(controls=[progress_bar_sample]),
-    ]
-    for row in rows_list:
-        page.add(row)
-
-    # プログレスバー表示の更新
-    # Note: 時間経過でバーを進め、100%になると最初に戻る
-    count = 0
-    while True:
-        progress_bar_sample.value = count / 100
-        progress_bar_sample.update()
-        sleep(0.1)
-        count += 1
-        count %= 100
+    first_row = ft.Row(controls=[text_save_dialog, button_save_dialog, text_field_save_file_path])
+    second_row = ft.Row(controls=[text_load_dialog, button_load_dialog, text_field_load_file_path])
+    page.add(first_row)
+    page.add(second_row)
 
 
 # main関数
