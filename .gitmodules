@@ -1,0 +1,16 @@
+[submodule "chapter4_samples/app1_yt-dlp_gui"]
+	path = chapter4_samples/app1_yt-dlp_gui
+	url = git@github.com:furaibo/yt-dlp_GUI.git
+	branch = main
+[submodule "chapter4_samples/app2_simple_image_converter"]
+	path = chapter4_samples/app2_simple_image_converter
+	url = git@github.com:furaibo/SimpleImageConverter.git
+	branch = main
+[submodule "chapter4_samples/app3_zine_event_sales_counter"]
+	path = chapter4_samples/app3_zine_event_sales_counter
+	url = git@github.com:furaibo/ZineEventSalesCounter.git
+	branch = main
+[submodule "chapter4_samples/app4_authenticator_modoki"]
+	path = chapter4_samples/app4_authenticator_modoki
+	url = git@github.com:furaibo/AuthenticatorModoki.git
+	branch = main
