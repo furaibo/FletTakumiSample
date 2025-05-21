@@ -22,9 +22,11 @@ def main(page: ft.Page):
         text_field_counter.update()
 
     # さまざまなテキストフィールドの定義
-    text_field_sample1 = ft.TextField(label="サンプルテキストフィールド(1)", width=300)
-    text_field_sample2 = ft.TextField(label="サンプルテキストフィールド(2)", width=300,
-                                      multiline=True, min_lines=5)
+    text_field_sample1 = ft.TextField(
+        label="サンプルテキストフィールド(1)", width=300)
+    text_field_sample2 = ft.TextField(
+        label="サンプルテキストフィールド(2)", width=300,
+        multiline=True, min_lines=5)
 
     # さまざまなボタンの定義
     button_sample1 = ft.CupertinoButton("サンプルボタン(1)")
@@ -34,9 +36,14 @@ def main(page: ft.Page):
     button_sample5 = ft.OutlinedButton("サンプルボタン(5)")
 
     # カウンターの定義
-    text_field_counter = ft.TextField(label="カウンター", width=100, read_only=True, value="0")
-    button_counter_minus = ft.IconButton(ft.Icons.REMOVE, on_click=lambda _: event_click_counter_minus())
-    button_counter_plus = ft.IconButton(ft.Icons.ADD, on_click=lambda _: event_click_counter_plus())
+    text_field_counter = ft.TextField(
+        label="カウンター", width=100, read_only=True, value="0")
+    button_counter_minus = ft.IconButton(
+        ft.Icons.REMOVE,
+        on_click=lambda _: event_click_counter_minus())
+    button_counter_plus = ft.IconButton(
+        ft.Icons.ADD,
+        on_click=lambda _: event_click_counter_plus())
 
     # ラジオボタンの定義
     radio_button_sample = ft.RadioGroup(ft.Row([
@@ -47,16 +54,15 @@ def main(page: ft.Page):
     radio_button_sample.value = "1"  # 属性1がデフォルトの状態に設定
 
     # ドロップダウンメニューの定義
-    # Note: このサンプルでは新しいバージョンの"DropdownM2"を利用
-    dropdown_sample = ft.DropdownM2(
+    dropdown_sample = ft.Dropdown(
         border=ft.InputBorder.UNDERLINE,
         label="ドロップダウンメニューサンプル",
         width=400,
         options=[
-            ft.dropdownm2.Option(key="Option1"),
-            ft.dropdownm2.Option(key="Option2"),
-            ft.dropdownm2.Option(key="Option3"),
-            ft.dropdownm2.Option(key="Option4")
+            ft.dropdown.Option(key="Option1"),
+            ft.dropdown.Option(key="Option2"),
+            ft.dropdown.Option(key="Option3"),
+            ft.dropdown.Option(key="Option4")
         ],
     )
 
@@ -66,10 +72,14 @@ def main(page: ft.Page):
 
     # Rowの定義とPageへの追加
     rows_list = [
-        ft.Row(controls=[text_field_sample1, text_field_sample2]),
-        ft.Row(controls=[button_sample1, button_sample2,
-                         button_sample3, button_sample4, button_sample5]),
-        ft.Row(controls=[button_counter_minus, text_field_counter, button_counter_plus]),
+        ft.Row(controls=[
+            text_field_sample1, text_field_sample2]),
+        ft.Row(controls=[
+            button_sample1, button_sample2, button_sample3,
+            button_sample4, button_sample5]),
+        ft.Row(controls=[
+            button_counter_minus, text_field_counter,
+            button_counter_plus]),
         ft.Row(controls=[radio_button_sample]),
         ft.Row(controls=[dropdown_sample]),
         ft.Row(controls=[progress_bar_text]),

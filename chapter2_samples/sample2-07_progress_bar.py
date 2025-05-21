@@ -1,8 +1,7 @@
-# from https://flet.dev/docs/controls/progressbar/
-
 from time import sleep
 
 import flet as ft
+
 
 def main(page: ft.Page):
     pb = ft.ProgressBar(width=400)
@@ -18,5 +17,6 @@ def main(page: ft.Page):
         pb.value = i * 0.01
         sleep(0.1)
         page.update()
+
 
 ft.app(main)

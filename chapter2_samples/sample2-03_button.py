@@ -6,12 +6,16 @@ import flet as ft
 def main(page: ft.Page):
     page.add(
         ft.CupertinoButton(
-            content=ft.Text("Normal CupertinoButton", color=ft.CupertinoColors.DESTRUCTIVE_RED),
+            content=ft.Text(
+                "Normal CupertinoButton",
+                color=ft.CupertinoColors.DESTRUCTIVE_RED),
             opacity_on_click=0.3,
             on_click=lambda e: print("Normal CupertinoButton clicked!"),
         ),
         ft.CupertinoButton(
-            content=ft.Text("Filled CupertinoButton", color=ft.Colors.YELLOW),
+            content=ft.Text(
+                "Filled CupertinoButton",
+                color=ft.Colors.YELLOW),
             bgcolor=ft.Colors.PRIMARY,
             alignment=ft.alignment.top_left,
             border_radius=ft.border_radius.all(15),

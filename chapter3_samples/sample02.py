@@ -16,12 +16,16 @@ def main(page: ft.Page):
         text_field_sample.value = ""
 
     # テキストおよびテキストフィールドの定義
-    text_sample = ft.Text(value="Input here!", color="green")
-    text_field_sample = ft.TextField(hint_text="入力してみましょう", width=300)
-    button_add_sample = ft.ElevatedButton("追加", on_click=add_clicked)
+    text_sample = ft.Text(
+        value="Input here!", color="green")
+    text_field_sample = ft.TextField(
+        hint_text="入力してみましょう", width=300)
+    button_add_sample = ft.ElevatedButton(
+        "追加", on_click=add_clicked)
 
     # Rowの定義とPageへの追加
-    first_row = ft.Row([text_sample, text_field_sample, button_add_sample])
+    first_row = ft.Row([
+        text_sample, text_field_sample, button_add_sample])
     page.add(first_row)
 
 

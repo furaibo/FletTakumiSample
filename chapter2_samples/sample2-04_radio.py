@@ -1,6 +1,5 @@
-# from https://flet.dev/docs/controls/radio/
-
 import flet as ft
+
 
 def main(page):
     def button_clicked(e):
@@ -15,5 +14,6 @@ def main(page):
         ft.Radio(value="blue", label="Blue")]))
 
     page.add(ft.Text("Select your favorite color:"), cg, b, t)
+
 
 ft.app(main)

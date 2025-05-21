@@ -30,9 +30,12 @@ def main(page: ft.Page):
         on_change=gap_slider_change,
     )
 
-    row = ft.Row(spacing=0, controls=items(10), scroll=ft.ScrollMode.AUTO)
+    row = ft.Row(spacing=0, controls=items(10),
+                 scroll=ft.ScrollMode.AUTO)
 
-    page.add(ft.Column([ft.Text("Spacing between items"), gap_slider]), row)
+    page.add(ft.Column([
+        ft.Text("Spacing between items"),
+        gap_slider]), row)
 
 
 ft.app(main)

@@ -33,7 +33,8 @@ def main(page: ft.Page):
 
     col = ft.Column(spacing=0, controls=items(5))
 
-    page.add(ft.Column([ft.Text("Spacing between items"), gap_slider]), col)
+    page.add(ft.Column([
+        ft.Text("Spacing between items"), gap_slider]), col)
 
 
 ft.app(main)

@@ -1,11 +1,11 @@
-# from https://flet.dev/docs/controls/filepicker/
-
 import flet as ft
+
 
 def main(page: ft.Page):
     def pick_files_result(e: ft.FilePickerResultEvent):
         selected_files.value = (
-            ", ".join(map(lambda f: f.name, e.files)) if e.files else "Cancelled!"
+            ", ".join(map(lambda f: f.name, e.files))
+            if e.files else "Cancelled!"
         )
         selected_files.update()
 
@@ -28,5 +28,6 @@ def main(page: ft.Page):
             ]
         )
     )
+
 
 ft.app(main)

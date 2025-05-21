@@ -15,9 +15,7 @@ def main(page: ft.Page):
     # View制御関連メソッドの定義
     def route_change(route: str):
         # 遷移先のrouteごとに処理を分岐
-        # Note:
-        #   最初のViewはデフォルトで追加され、他のViewをクリアしたあとも残す必要がある
-        #   page.views.clear()ですべてのViewを消すと何も表示されない状態になる
+        # Note:　デフォルトで追加される最初のViewは残すこと
         if page.route == "/":
             # 最初のデフォルト生成Viewだけ残るように処理
             first_view = page.views[0]
@@ -52,7 +50,8 @@ def main(page: ft.Page):
     page.on_view_pop = view_pop
 
     page.appbar = ft.AppBar(title=ft.Text("Viewテスト用サンプル"))
-    button_top = ft.OutlinedButton("入力へ進む", on_click=lambda _: page.go("/form/1"))
+    button_top = ft.OutlinedButton(
+        "入力へ進む", on_click=lambda _: page.go("/form/1"))
     page.add(button_top)
 
     #
@@ -60,21 +59,32 @@ def main(page: ft.Page):
     #
 
     # View 1
-    text_field_1_1 = ft.TextField(label="サンプル入力(1-1)", width=300)
-    text_field_1_2 = ft.TextField(label="サンプル入力(1-2)", width=300)
-    button_submit_1 = ft.OutlinedButton("次へ", on_click=lambda _: page.go("/form/2"))
+    text_field_1_1 = ft.TextField(
+        label="サンプル入力(1-1)", width=300)
+    text_field_1_2 = ft.TextField(
+        label="サンプル入力(1-2)", width=300)
+    button_submit_1 = ft.OutlinedButton(
+        "次へ", on_click=lambda _: page.go("/form/2"))
 
     # View 2
-    text_field_2_1 = ft.TextField(label="サンプル入力(2-1)", width=300)
-    text_field_2_2 = ft.TextField(label="サンプル入力(2-2)", width=300)
-    button_submit_2 = ft.OutlinedButton("次へ", on_click=lambda _: page.go("/finish"))
+    text_field_2_1 = ft.TextField(
+        label="サンプル入力(2-1)", width=300)
+    text_field_2_2 = ft.TextField(
+        label="サンプル入力(2-2)", width=300)
+    button_submit_2 = ft.OutlinedButton(
+        "次へ", on_click=lambda _: page.go("/finish"))
 
     # View Finish
-    text_field_check_1_1 = ft.TextField(label="サンプル入力(2-1)", width=300, read_only=True)
-    text_field_check_1_2 = ft.TextField(label="サンプル入力(2-2)", width=300, read_only=True)
-    text_field_check_2_1 = ft.TextField(label="サンプル入力(2-1)", width=300, read_only=True)
-    text_field_check_2_2 = ft.TextField(label="サンプル入力(2-2)", width=300, read_only=True)
-    button_submit_finish = ft.OutlinedButton("確認完了して最初に戻る", on_click=lambda _: page.go("/"))
+    text_field_check_1_1 = ft.TextField(
+        label="サンプル入力(2-1)", width=300, read_only=True)
+    text_field_check_1_2 = ft.TextField(
+        label="サンプル入力(2-2)", width=300, read_only=True)
+    text_field_check_2_1 = ft.TextField(
+        label="サンプル入力(2-1)", width=300, read_only=True)
+    text_field_check_2_2 = ft.TextField(
+        label="サンプル入力(2-2)", width=300, read_only=True)
+    button_submit_finish = ft.OutlinedButton(
+        "確認完了して最初に戻る", on_click=lambda _: page.go("/"))
 
     # Viewの定義
     view_form1 = ft.View(
@@ -96,10 +106,14 @@ def main(page: ft.Page):
     view_finish = ft.View(
         appbar=ft.AppBar(title=ft.Text("View Finish")),
         controls=[
-            ft.Row(controls=[ft.Text("サンプル1-1入力内容: "), text_field_check_1_1]),
-            ft.Row(controls=[ft.Text("サンプル1-2入力内容: "), text_field_check_1_2]),
-            ft.Row(controls=[ft.Text("サンプル2-1入力内容: "), text_field_check_2_1]),
-            ft.Row(controls=[ft.Text("サンプル2-2入力内容: "), text_field_check_2_2]),
+            ft.Row(controls=[
+                ft.Text("サンプル1-1入力内容: "), text_field_check_1_1]),
+            ft.Row(controls=[
+                ft.Text("サンプル1-2入力内容: "), text_field_check_1_2]),
+            ft.Row(controls=[
+                ft.Text("サンプル2-1入力内容: "), text_field_check_2_1]),
+            ft.Row(controls=[
+                ft.Text("サンプル2-2入力内容: "), text_field_check_2_2]),
             ft.Row(controls=[button_submit_finish]),
         ]
     )
